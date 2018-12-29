@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登陆BBS</title>
+  <style type="text/css">
+    .regi{
+      text-decoration: none;color: #000;
+      display: block;
+      background: #e1e1e1;
+      border: 1px solid #adadad;
+      text-align: center;
+    }
+    .regi:hover{
+      background: rgb(229,241,251);
+      border-color: #0087ff;
+    }
+  </style>
+</head>
+<body style="background: #278296">
+<form method="post" action="index.php?c=login&act=signin" name='theForm' onsubmit="return checkLogin(this)">
+  <table cellspacing="0" cellpadding="0" style="margin-top: 100px" align="center">
+  <tr>
+    <td><img src="application/views/home/images/login.png" width="178" height="256" border="0" alt="YUTBBS"/></td>
+    <td style="padding-left: 50px">
+      <table>
+      <tr>
+        <td>用户名：</td>
+        <td><input type="text" name="username" autocomplete="off" disableautocomplete/></td>
+      </tr>
+      <tr>
+        <td>密 &nbsp;&nbsp;&nbsp;码：</td>
+        <td><input type="password" name="password" /></td>
+      </tr>
+      <tr>
+        <td>验证码：</td>
+        <td><input type="text" style="text-transform:uppercase;" name="captcha" class="capital" autocomplete="off" disableautocomplete/></td>
+      </tr>
+      <tr>
+      <td colspan="2" align="right"><img src="index.php?p=home&c=login&act=captcha" width="145" height="40" alt="CAPTCHA" border="1" onclick= this.src="index.php?p=home&c=login&act=captcha&"+Math.random() style="cursor: pointer;" title="看不清？点击更换另一个验证码。" />
+      </td>
+      </tr>
+<!--       <tr><td colspan="2"><input type="checkbox" value="1" name="remember" id="remember" /><label for="remember">请保存我这次的登录信息</label></td></tr> -->
+      <tr>
+    	 <td><input type="submit" value="登陆校园BBS"/></td>
+      	<td align="right"><a href="index.php?p=home&c=login&act=register" class="regi">注册账号</a></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a href="index.php?c=login&act=losepwd" class="regi">忘记密码</a>
+        </td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+  </table>
+</form>
+<script type="text/javascript" src="application/views/home/js/checkInfo.js"></script>
+</body>
+</html>

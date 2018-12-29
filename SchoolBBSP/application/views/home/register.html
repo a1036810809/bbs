@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>注册账号</title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/registe.css">
+</head>
+<body>
+	<div class="head">
+		<div class="icon">
+			<img src="application/views/home/images/head_icon.png" height="100%">
+		</div>
+		<div class="userinfo">
+			<p>
+				<span><a href="index.php?c=login&act=login">返回</a></span>
+			</p>
+		</div>
+	</div>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">&nbsp;&nbsp;&nbsp;账号注册</div>
+	<div style="width: 60%;border: 1px solid #ccc;border-radius: 10px;box-shadow:2px 2px 0px 2px #ccc;margin: 10px auto;">
+		<form action="index.php?c=login&act=regiSub" method="post" onsubmit="return checkUserInfo(this)" name="regisform">
+			<br>	
+			<p align="center"><strong>烟台大学BBS注册表单</strong></p>
+			<table cellpadding="0" cellspacing="5" border="0" style="margin: 20px auto;text-align: center;">
+				<tr>
+					<td colspan="2">
+						<font color="red" id="showmsg">邮箱与电话可帮助找回密码请谨慎填写</font>
+					</td>
+				</tr>
+				<tr>
+					<td>账号：</td>
+					<td><input type="text" name="username" size="20" pattern="^[1-9][0-9]{5,13}$" placeholder="仅数字且第一位不能为0,长度为6-14位" title="仅数字且第一位不能为0,长度为6-14位"></td>
+				</tr>
+				<tr>
+					<td>密码：</td>
+					<td><input type="password" name="pwd" size="20" title="至少包含数字和字母，8-20位"></td>
+				</tr>
+				<tr>
+					<td>昵称：</td>
+					<td><input type="text" name="nickname"></td>
+				</tr>
+				<tr>
+					<td>性别：</td>
+					<td>
+						<input type="radio" name="sex" value="0" checked="">保密
+						<input type="radio" name="sex" value="1">男
+						<input type="radio" name="sex" value="2">女
+					</td>
+				</tr>
+				<tr>
+					<td>地址：</td>
+					<td>
+						 <select class="form-control" id="province" name="province"></select><br>
+						 <select class="form-control" id="city" name="city" ></select><br>
+						 <select class="form-control" id="area" name="area" ></select>
+					</td>
+				</tr>
+				<tr>
+					<td>生日：</td>
+					<td><input type="date" name="brithday" size="20" style="width: 150px"></td>
+				</tr>
+				<tr>
+					<td>邮箱：</td>
+					<td><input type="email" name="email"></td>
+				</tr>
+				<tr>
+					<td>电话：</td>
+					<td><input type="text" name="tell" pattern="^1[34578][0-9]{9}$"></td>
+				</tr>
+				<tr>
+					<td>学校：</td>
+					<td><input type="text" name="school"></td>
+				</tr>
+				<tr>
+					<td>简介：</td>
+					<td><textarea cols="16" rows="3" placeholder="输入个人介绍..." name="token" style="width: 150px;height: 60px"></textarea></td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" name="" value="注册">
+					</td>
+					<td>
+						<input type="reset" name="" value="重置">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript" src="application/views/home/js/address.js"></script>
+	<script type="text/javascript" src="application/views/home/js/checkInfo.js"></script>
+	<script type="text/javascript">
+		addressInit('province', 'city', 'area');  
+	</script>
+	<?php include "footer.html"?>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/registe.css">
+</head>
+<body>
+	<div class="head">
+		<div class="icon">
+			<img src="application/views/home/images/head_icon.png" height="100%">
+		</div>
+		<div class="userinfo">
+			<div class="potomy">
+				<img src="./public/uploads/<?php echo $user['poto']?>" class="poto">
+			</div>
+			<p>
+				<strong class="username">
+					<a href="index.php?c=user&act=showUserInfo&id=<?php echo $user['username']?>"><?php echo $user['nickname']?></a>
+				</strong>
+				<span>欢迎您</span>
+				<span>|</span>
+				<a href="index.php?c=article&act=showMyPage">我的帖子</a>
+				<span>|</span>
+				<a href="index.php?c=user&act=setInfoPage">设置</a>
+				<span>|</span>
+				<?php if ($user['identity'] == 1){?>
+				<a href="index.php?c=user&act=regVip">注册会员</a>
+				<?php }else{?>
+				<a href="#">已是会员</a>
+				<?php }?>
+				<span>|</span>
+				<a href="index.php?c=login&act=logout">退出</a>
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="application/views/home/js/setpoto.js"></script>
+</body>
+</html>

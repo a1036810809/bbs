@@ -1,0 +1,112 @@
+/*
+$Id: main.css 13991 2008-01-17 06:17:23Z maruitao $
+*/
+
+.dis{
+  display:block;
+}
+.inline{
+  display:inline;
+}
+.none{
+  display:none;
+}
+
+body {
+  background: #DDEEF2;
+  padding: 10px;
+}
+
+h1{
+  background: #F4FAFB;
+  border: 1px solid #BBDDE5;
+  color: #9CACAF;
+  font-size: 14px;
+  padding: 7px 10px;
+  margin: 0 0 10px 0;
+  overflow:hidden;
+}
+
+h1 a:visited {
+  color: #333;
+}
+
+h1 a:link {
+  color: #333;
+}
+
+h1 a:hover {
+  color: #EB8A3D;
+}
+
+h1 span{zoom:1;}
+
+
+h1 .action-span1 {
+  float:left;
+  margin-top:2px;
+}
+
+#footer {
+  background: #F4FaFb;
+  border: 1px solid #BBDDE5;
+  padding: 15px;
+  color: #9CACAF;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/*
+ 列表部分的样式
+ */
+.list-div {
+  width: 100%;
+  background: #EEF8F9;
+  border: 1px solid #BBDDE5;
+}
+
+.list-div-ad {
+  border: 0px solid #BBDDE5;
+}
+
+.list-div table {
+  width: 100%;
+}
+
+.list-div th {
+  line-height: 24px;
+  background: #BBDDE5 url("../images/th_bg.gif") repeat-x;
+  white-space: nowrap;
+}
+
+.list-div td {
+  background: #FFF;
+  line-height: 22px;
+}
+
+.list-div td.first-cell{
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.list-div input {
+  vertical-align: middle;
+}
+
+.list-div a:visited, .list-div a:link {
+  text-decoration: underline;
+  color: #192E32;
+}
+
+.list-div a:hover {
+  color: #9D7250;
+}
+
+.list-div input, list-div img {
+  vertical-align: middle;
+}
+
+.list-div .footer {
+  background: #F4FAFB;
+  text-align: right;
+}

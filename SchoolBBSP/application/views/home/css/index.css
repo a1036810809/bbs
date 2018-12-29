@@ -1,0 +1,134 @@
+li{
+	list-style: none;
+	display: inline-block;
+	height: 100%;
+	border-top: 1px solid #eee;
+	cursor: pointer;
+	padding: 0 5px;
+}
+ul{
+	margin-left: 10px;
+}
+li:hover{
+	background: #fff;
+}
+.hov{
+	background: #fff;
+}
+.content_box{
+	width: 98%;
+	position: relative;
+	margin: auto;
+}
+.content{
+	width: 75%;
+	margin: 10px 20px;
+	border: 1px solid #cdcdcd;
+	display: none;
+}
+.con_right{
+	width: 18%;
+	display: inline-block;
+	float: right;
+	margin: 10px 10px;
+}
+.focus{
+	display: inline-block;
+}
+.article-table{
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+.article-table tr{
+	height: 30px;
+	position: relative;
+	border-bottom: 1px solid #cdcdcd;
+}
+.article-table tr:hover{
+	background: #f2f2f2;
+}
+.user{
+	display: none;
+	height: 100px;
+	width: 250px;
+	z-index: 10;
+	border: 1px solid #C5E6DF;
+	box-shadow: 0px 1px 0px 1px #cdcdcd;
+}
+.nosex{
+	background: #efefef url(../images/nosexbg.png) no-repeat bottom right;
+}
+.lady{
+	background: #fce0df url(../images/ladybg.png) no-repeat bottom right;
+}
+.gentleman{
+	background: #bbebf9 url(../images/gentlemanbg.png) no-repeat bottom right;
+}
+.user_poto{
+	margin-top: 10px;
+	margin-left: 10px;
+	height: 40px;
+	width: 40px;
+	border:  1px solid #fff;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.info{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.token{
+	font-size: 0.8em;
+	color: #444;
+	margin-top: 2px;
+	width: 160px;
+	height: 60px;
+	overflow: hidden;
+}
+.myinfo{
+	height: 300px;
+	width: 100%;
+	position: relative;
+	border: 1px solid #cdcdcd;
+	margin-bottom: 50px;
+}
+.mypoto{
+	height: 70%;
+	width: 210px;
+	overflow: hidden;
+	text-align: center;
+	margin: 20px auto;
+}
+.att{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: #cdcdcd;
+}
+.att span{
+	display: inline-block;
+	height: 33px;
+	width: 49%;
+	text-align: center;
+	background: #f2f2f2;
+	border-top: 1px solid #cdcdcd;
+	line-height: 33px;
+	cursor: pointer;
+}
+.link_box{
+	width: 100%;
+	border: 1px solid #cdcdcd;
+	min-height: 100px;
+}
+.box_title{
+	background: #f2f2f2;
+	border-bottom: 1px solid #cdcdcd;
+	text-align: center;
+	height: 33px;
+	line-height: 33px;
+}
+.link_li{
+	width: 90%;
+	margin: 10px auto;
+}

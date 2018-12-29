@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript">
+		setInterval(function(){
+	       /* document.getElementsByTagName('body')[0].style.height = window.innerHeight+'px';*/
+	        document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());
+	    },20);
+	</script>
+</head>
+<body>
+	<br><br>
+	<hr>
+	<div style="margin-top: 10px;text-align: center;">
+		<p>版权所有 LZF <a href="#">bbs.lzfytu.com</a> &copy;2018-2019</p>
+		<p>当前时间 <span id="time"></span></p>
+	</div>
+</body>
+</html>

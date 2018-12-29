@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo $title?>的主页</title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/public.css">
+	<style type="text/css">
+		body{
+			background: url(./application/views/home/images/bgtwo.jpg);
+		}
+		.info{
+			width: 1000px;
+			margin-top: 100px;
+			background-color: #eee;
+		}
+		.me{
+			display: inline-block;
+			height: 33px;
+		}
+		.me:hover{
+			background: #fff;
+		}
+		.h{
+			background: #fff;
+		}
+		.show_box{
+			width: 100%;
+			display: none;
+		}
+		.hshow_box{
+			display: block;
+		}
+		.write{
+			width:60%;
+			margin: 10px auto;
+			position: relative;
+		}
+		.file_input{
+			display: none;
+		}
+		.chosefile{
+			height: 100px;
+			line-height: 100px;
+			width: 100px;
+			text-align: center;
+			position: absolute;
+			top: 0;
+			cursor: pointer;
+			display: inline-block;
+		}
+		.dynamic_box{
+			width: 48%;
+			border: 1px solid #cdcdcd;
+			margin-left: 20%;
+		}
+		.dynamic_head{
+			height: 33px;
+			border-bottom: 1px solid #cdcdcd;
+			line-height: 33px;
+			background: #fff;
+		}
+		.dynamic_cont{
+			width: 98%;
+			margin: 5px auto;
+		}
+		.dynamic_cont_head{
+			width: 100%;
+		}
+		.dynamic_cont_d{
+			width: 98%;
+			margin: 5px auto;
+		}
+		.dynamic_cont_resp{
+			width: 96%;
+			margin: auto;
+		}
+		.dynamic_poto{
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		.image{
+			max-width: 60%;
+		}
+		.fs span{
+			cursor: pointer;
+			height: 33px;
+			line-height: 33px;
+			text-align: center;
+			width: 48%;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class="content info">
+		<div style="height: 33px;background-color: #eee;line-height: 33px;">
+			<a href="index.php" class="plc">返回主页</a>
+			<a href="index.php?c=article">所有帖子</a>
+			<a href="index.php?c=user&act=showUserInfo&id=<?php echo $id?>&i=1" class="plc me <?php if($i == 1){ echo 'h';}?>"><?php echo $title?>的主页</a>
+			<a href="index.php?c=user&act=showUserInfo&id=<?php echo $id?>&i=2" class="plc me <?php if($i == 2){ echo 'h';}?>"><?php echo $title?>的资料</a>
+			<a href="index.php?c=user&act=showUserInfo&id=<?php echo $id?>&i=3" class="plc me <?php if($i == 3){ echo 'h';}?>"><?php echo $title?>的留言板</a>
+			<?php if ($falg == 2){?>
+			<a href="index.php?c=attention&act=close&id=<?php echo $id?>&i=3" class="plc me <?php if($i == 3){ echo 'h';}?>">取消关注</a>
+			<?php }else if ($falg == 3){?>
+			<a href="index.php?c=attention&act=add&id=<?php echo $id?>&i=3" class="plc me <?php if($i == 3){ echo 'h';}?>">关注</a>
+			<?php }?>
+		</div>
+		<?php if($i == 1){?>
+		<div class="hshow_box">
+			<table cellspacing="0" cellpadding="0" class="ad">
+				<tr>
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>
+			<?php if ($user['username'] == $id):?>
+			<div class="write ">
+				<form action="index.php?c=dynamic&act=addDynamic" method="post" enctype="multipart/form-data" onsubmit="return check(this)">
+					<textarea name="dynamic" style="width: 60%;height: 100px;" placeholder="说点什么吧..."></textarea>
+					<input type="file" name="file" class="file_input" id="file_input">
+					<div class="chosefile" id="chose"><span id="msg">可选择照片</span></div>
+					<div style="width: 80%;height: 33px;text-align: right;border: 1px solid #cdcdcd;line-height: 33px;"><input type="submit" name="" value="发表" style="margin-right: 2px;cursor: pointer;"></div>
+				</form>
+			</div>
+			<?php endif?>
+			<div class="dynamic_box">
+				<div class="dynamic_head">
+					&nbsp;&nbsp;动态
+				</div>
+				<?php foreach($dynamics as $dynamic):?>
+				<div class="dynamic_cont">
+					<div class="dynamic_cont_head">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<td rowspan="2" width="60px">
+									<div class="dynamic_poto"><img src="./public/uploads/<?php echo $dynamic['user']['poto']?>" class="poto"></div>
+								</td>
+								<td><span style="font-weight: bold;font-size: 1.2em;">&nbsp;&nbsp;<?php echo $dynamic['user']['nickname']?></span></td>
+								<?php if ($user['username'] == $id):?>
+								<td rowspan="2" align="right"><a href="index.php?c=dynamic&act=delete&id=<?php echo $dynamic['dynamic']['dynamic_id']?>" >删除</a></td>
+								<?php endif?>
+							</tr>
+							<tr>
+								<td><span style="font-size: .8em">&nbsp;&nbsp;发表于 <?php echo $dynamic['dynamic']['starttime']?></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><hr></td>
+							</tr>
+						</table>
+					</div>
+					<div class="dynamic_cont_d">
+						<table cellspacing="0" cellpadding="3">
+							<?php foreach($dynamic['dynamic']['content'] as $row){?>
+							<tr>
+								<td><?php echo $row?></td>
+							</tr>
+							<?php }?>
+							<?php if($dynamic['image']){?>
+							<tr>
+								<td>
+									<div class="image">
+										<img src="./public/uploads/<?php echo $dynamic['image'][0]['image']?>" width="100%">
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+							<tr>
+								<td align="right">
+									<a style="cursor: pointer;" onclick="dianzhan(<?php echo $dynamic['dynamic']['dynamic_id']?>)"><span id="pre_num">点赞 <?php echo $dynamic['pre_num']?>人</span></a>
+								</td>
+							</tr>
+							<tr><td><hr></td></tr>
+						</table>
+					</div>
+					<div class="dynamic_cont_resp">
+						<table cellspacing="0" cellpadding="0" id="resp_table<?php echo $dynamic['dynamic']['dynamic_id']?>">
+							<?php foreach($dynamic['responds'] as $key => $respond){?>
+							<tr>
+								<td rowspan="2" width="30px">
+									<div style="width: 30px;height: 30px;border-radius: 50%;overflow: hidden;"><img src="./public/uploads/<?php echo $dynamic['responds_user'][$key]['poto']?>" class="poto"></div>
+								</td>
+								<td><span>&nbsp;&nbsp;<a href=""><?php echo $dynamic['responds_user'][$key]['nickname']?></a> : <?php echo $respond['content']?></span></td>
+								<?php if ($user['username'] == $dynamic['responds_user'][$key]['username']):?>
+								<td rowspan="2" align="right"><a href="index.php?c=respond&act=delFDyn&id=<?php echo $respond['resp_id']?>">删除</a></td>
+								<?php endif?>
+							</tr>
+							<tr>
+								<td><span style="font-size: .8em">&nbsp;&nbsp;回复于 <?php echo $respond['starttime']?></span></td>
+							</tr>
+							<?php }?>
+							<tr><td colspan="3">&nbsp;</td></tr>
+							<tr>
+								<td colspan="2">
+									<textarea id="resp<?php echo $dynamic['dynamic']['dynamic_id']?>" style="width: 100%;height: 20px;" placeholder="说点什么吧..."></textarea>
+								</td>
+								<td align="right">
+									<input type="submit" name="" value="评论" onclick="send(<?php echo $dynamic['dynamic']['dynamic_id']?>)">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<hr>
+				<?php endforeach;?>
+
+				<!-- 分页 -->
+				<table id="page-table" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+								<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+								<div id="turn-page">
+									<?php echo $pageinfo;?>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<?php } else if($i == 2){?>
+		<div class="hshow_box">
+			<table cellspacing="0" cellpadding="0" class="ad">
+				<tr>
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="pls">
+						<div class="user_poto">
+							<img src="./public/uploads/<?php echo $userinfo['poto']?>">
+						</div>
+						<div class="tc">
+							<span><?php echo $userinfo['nickname']?></span>
+						</div>
+						<div class="tc fs">
+							<a href="index.php?c=attention&act=showAtt&id=<?php echo $userinfo['username']?>"><span>关注 <?php echo $att_num?>人</span></a>
+							<a href="index.php?c=attention&act=showFens&id=<?php echo $userinfo['username']?>"><span>粉丝 <?php echo $fens_num?>人</span></a>
+						</div>
+					</td>
+					<td class="plc tl" style="background: #fff;padding-left: 0px;">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="10%" class="tr">账号：</td>
+								<td width="90%"><?php echo $userinfo['username']?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">昵称：</td>
+								<td width="90%"><?php echo $userinfo['nickname']?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">性别：</td>
+								<td width="90%"><?php if ($userinfo['sex'] == 0){ echo "保密";}else if ($userinfo['sex'] == 1){ echo "男";}else{ echo "女";}?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">生日：</td>
+								<td width="90%"><?php echo $userinfo['brithday']?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">家乡：</td>
+								<td width="90%"><?php echo $userinfo['province']?> <?php echo $userinfo['city']?> <?php echo $userinfo['area']?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">学校：</td>
+								<td width="90%"><?php echo $userinfo['school'] == "" ? "未填写..." : $userinfo['school'];?></td>
+							</tr>
+							<tr>
+								<td width="10%" class="tr">简介：</td>
+								<td width="90%"><?php echo $userinfo['token'] == "" ? "他很懒，什么都没有写..." : $userinfo['token'];?></td>
+							</tr>
+							<?php if ($id == $user['username']):?>
+								<tr>
+									<td width="10%" class="tr">电话：</td>
+									<td width="90%"><?php echo $userinfo['phone']?></td>
+								</tr>
+								<tr>
+									<td width="10%" class="tr">邮箱：</td>
+									<td width="90%"><?php echo $userinfo['email']?></td>
+								</tr>
+							<?php endif?>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table cellspacing="0" cellpadding="0" class="ad">
+				<tr>
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>
+		</div>
+		<?php }else if($i == 3){?>
+		<div class="hshow_box">
+			<table cellspacing="0" cellpadding="0" class="ad">
+				<tr>
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>
+			<div class="write ">
+				<form action="index.php?c=message&act=addMessage" method="post" enctype="multipart/form-data" onsubmit="return checkM(this)">
+					<textarea name="message" style="width: 80%;height: 100px;" placeholder="留个言再走吧..."></textarea>
+					<input type="hidden" name="id" value="<?php echo $id?>">
+					<div style="width: 80%;height: 33px;text-align: right;border: 1px solid #cdcdcd;line-height: 33px;"><input type="submit" name="" value="留言" style="margin-right: 2px;cursor: pointer;"></div>
+				</form>
+			</div>
+			<div class="dynamic_box">
+				<?php if ($total == 0){?>
+					<h1 style="color: #ccc">一条留言的没有。。快留一条吧！</h1>
+				<?php } foreach($msginfo as $row):?>
+				<div class="dynamic_cont">
+					<div class="dynamic_cont_head">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<td rowspan="2" width="60px">
+									<div class="dynamic_poto"><img src="./public/uploads/<?php echo $row['user']['poto']?>" class="poto"></div>
+								</td>
+								<td><span style="font-weight: bold;font-size: 1.2em;">&nbsp;&nbsp;<?php echo $row['user']['nickname']?></span></td>
+								<?php if ($user['username'] == $id || $row['message']['username_mes'] == $user['username']):?>
+								<td rowspan="2" align="right"><a href="index.php?c=message&act=delete&id=<?php echo $row['message']['mess_id']?>">删除</a></td>
+								<?php endif?>
+							</tr>
+							<tr>
+								<td><span style="font-size: .8em">&nbsp;&nbsp;<?php echo $row['message']['starttime']?></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><hr></td>
+							</tr>
+						</table>
+					</div>
+					<div class="dynamic_cont_d">
+						<table cellspacing="0" cellpadding="3">
+							<?php foreach($row['message']['content'] as $r){?>
+							<tr>
+								<td><?php echo $r?></td>
+							</tr>
+							<?php }?>
+						</table>
+					</div>
+				</div>
+				<hr>
+				<?php endforeach?>
+				<!-- 分页 -->
+				<table id="page-table" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+								<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+								<div id="turn-page">
+									<?php echo $pageinfo;?>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<?php }?>
+		<?php include "footer.html"?>
+	</div>
+</body>
+<script type="text/javascript" src="application/views/home/js/setpoto.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>  
+<script type="text/javascript">
+	window.onload = function(){
+		document.getElementsByTagName('body')[0].style.height = window.innerHeight+'px';
+	}
+	var chose = document.getElementById('chose');
+	var input = document.getElementById('file_input');
+	input.onchange = function(){
+		var msg = document.getElementById('msg');
+		msg.innerHTML = '已选择一张图片';
+	}
+	chose.onclick = function(){
+		var oinput = document.getElementById('file_input');
+		oinput.click();
+	}
+	function check(obj){
+		if (obj.dynamic.value == ''){
+			alert('说点什么再发表吧~');
+			return false;
+		}
+		return true;
+	}
+	function checkM(obj){
+		if (obj.message.value == ''){
+			alert('说点什么再留吧~');
+			return false;
+		}
+		return true;
+	}
+	function send(id){
+		var resp = document.getElementById('resp'+id);
+		if (resp.value == ''){
+			alert('说点什么再评论吧！');
+		}else{
+			$.ajax({    
+	            url : './index.php?c=dynamic&act=respond',    
+	            type : 'post', 
+	            data : {resp: resp.value,
+	            		dynamic_id: id
+	            },    
+	            dataType: 'json',    
+	            //processData: false,   用FormData传fd时需有这两项    
+	            //contentType: false,    
+	            success : function(data){    
+	                alert(data['msg']);
+	                if (data['msg'] == '评论成功！'){
+		                var table = document.getElementById('resp_table'+data['id']);
+		                var tron = document.createElement('tr');
+		                var trto = document.createElement('tr');
+		                tron.innerHTML = data['rowone'];
+		                trto.innerHTML = data['rowtwo']
+		                table.insertBefore(trto,table.children[0]);
+		                table.insertBefore(tron,table.children[0]);
+	            	}
+	          　}
+	 
+	        });
+		}
+	}
+	function dianzhan(id){
+		$.ajax({    
+            url : './index.php?c=dynamic&act=dianzhan',    
+            type : 'post', 
+            data : {dynamic_id: id
+            },    
+            dataType: 'json',    
+            //processData: false,   用FormData传fd时需有这两项    
+            //contentType: false,    
+            success : function(data){    
+                alert(data['msg']);
+                var pre = document.getElementById('pre_num');
+                pre.innerHTML = "点赞 "+data['total']+"人"; 
+          　}
+ 
+	    });
+	}
+</script>
+</html>

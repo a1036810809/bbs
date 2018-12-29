@@ -1,0 +1,69 @@
+*{
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
+}
+.head{
+	height: 100px;
+	width: 100%;
+	background: url(../images/bgimg.jpg) 0 0;
+	background-size: cover;
+	position: relative;
+}
+.icon{
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.userinfo{
+	width: 100%;
+	position: relative;
+	right: 10px;
+	top: 20px;
+}
+.potomy{
+	height: 60px;
+	width: 60px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	box-shadow: inset -2px -2px 1px 3px #ccc;
+}
+.userinfo p{
+	text-align: right;
+	position: absolute;
+	right: 80px;
+	top: 10px;
+	font:12px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+}
+.username{
+	padding-left: 16px;
+	background: url(../images/user_online.gif) 0 2px no-repeat;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
+.form-control{
+	margin-bottom: 2px;
+	width: 150px;
+}
+.clear{
+	clear: both;
+}
+#page-table{
+	float: right;
+	margin: 5px;
+}
+.right{
+	float: right;
+}
+.left{
+	float: left;
+}

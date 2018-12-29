@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>烟台大学BBS</title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/index.css">  
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/chosepoto.css">  
+</head>
+<body>
+	<?php include "head.html"?>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">
+		<?php if (isset($where)):?>
+			&nbsp;&nbsp;<a href="index.php">返回主页</a>>>
+			<a href="index.php?c=article">所有帖子</a>
+		<?php else:?>
+		<ul id="meun">
+			<li class="hov">查看帖子</li>
+			<li>发布帖子</li>
+			<a href="index.php">主页</a>
+		</ul>
+		<?php endif?>
+	</div>
+	<div class="content_box">
+		<!--查看帖子Start-->
+		<div class="content focus">
+			<table class="article-table" cellpadding="0" cellspacing="0">
+				<tr style="background: #f2f2f2;">
+					<td width="70%">标题</td>
+					<td width="10%" style="font-size: 0.7em">作者<p>发布时间</p></td>
+					<td width="10%">回复数</td>
+					<td width="10%" style="font-size: 0.7em;">最后回复人<p>回复时间</p></td>
+				</tr>
+				<?php foreach($ans as $an) :?>
+				<tr>
+					<td width="70%" style="text-align: left;padding-left: 2em;position: relative;">
+						<a href="index.php?c=article&act=showPage&id=<?php echo $an['article']['arti_id']?>">[<?php echo $an['article']['classname']?>]<?php echo $an['article']['title']?> <?php if ($an['article']['power']!=1){ echo "[vip]";}?></a>
+						<?php if (isset($where)):?>
+						<a href="index.php?c=article&act=deleteArticle&id=<?php echo $an['article']['arti_id']?>" style="position: absolute;right: 0px;">删除</a>
+						<?php endif?>
+					</td>
+					<td width="10%" style="font-size: 0.7em"><a href="index.php?c=user&act=showUserInfo&id=<?php echo $an['userinfo']['username']?>" class="autor" value="user<?php echo $an['article']['arti_id']?>"><?php echo $an['userinfo']['nickname']?></a><p><?php echo $an['article']['starttime']?></p></td>
+					<td width="10%"><?php echo $an['respondnum']?></td>
+					<td width="10%" style="font-size: 0.7em"><a href="index.php?c=user&act=showUserInfo&id=<?php echo $an['user_respond']['username']?>" class="lastuser" value="user_respond<?php echo $an['article']['arti_id']?>"><?php echo $an['user_respond']['nickname']?></a><p><?php echo $an['article']['endTime']?></p></td>
+					<div class="user <?php if ($an['userinfo']['sex'] == 0) { echo 'nosex';}else if ($an['userinfo']['sex'] == 1) {echo 'gentleman';} else echo 'lady'?>" id="user<?php echo $an['article']['arti_id']?>">
+						<div class="user_poto left">
+							<img src="./public/uploads/<?php echo $an['userinfo']['poto']?>" class="poto">
+						</div>
+						<div class="info left">
+							<a href="index.php?c=user&act=showUserInfo&id=<?php echo $an['userinfo']['username']?>"><p><?php echo $an['userinfo']['nickname']?></p></a>
+							<div class="token"><?php echo $an['userinfo']['token'] == "" ? "该用户很懒，什么都没有写..." : $an['userinfo']['token']?></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="user user_respond <?php if ($an['user_respond']['sex'] == 0) { echo 'nosex';}else if ($an['user_respond']['sex'] == 1) {echo 'gentleman';} else echo 'lady'?>" id="user_respond<?php echo $an['article']['arti_id']?>">
+						<div class="user_poto left">
+							<img src="./public/uploads/<?php echo $an['user_respond']['poto']?>" class="poto">
+						</div>
+						<div class="info left">
+							<a href="index.php?c=user&act=showUserInfo&id=<?php echo $an['user_respond']['username']?>"><p><?php echo $an['user_respond']['nickname']?></p></a>
+							<div class="token"><?php echo $an['user_respond']['token'] == "" ? "该用户很懒，什么都没有写..." : $an['user_respond']['token']?></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</tr>
+				<?php endforeach?>
+			</table>
+
+			<!-- 分页 -->
+			<table id="page-table" cellspacing="0">
+				<tbody>
+					<tr>
+						<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+							<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+							<div id="turn-page">
+								<?php echo $pageinfo;?>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="clear"></div>
+		</div>
+		<!--查看帖子End-->
+
+		<!--写帖子Start-->
+		<div class="content">
+				<table cellpadding="10" cellspacing="20" border="0" style="margin: 10px auto;">
+					<tr>
+						<th>标题：</th>
+						<td>
+							<input type="text" name="title" id="title" size="47">
+						</td>
+					</tr>
+					<tr>
+						<th>正文：</th>
+						<td>
+							<textarea cols="50" rows="10" id="article" name="article"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>类型：</td>
+						<td>
+							<select name="classname" id="classname">
+								<?php foreach($classs as $class){?>
+								<?php if ($class['classname']!='官方公告'||$user['identity']==3){?>
+								<option value="<?php echo $class['classname']?>"><?php echo $class['classname']?></option>
+								<?php }}?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>权限：</td>
+						<td>
+							<select name="power" <?php if($user['identity']==1){ echo "disabled='true'";}?> id="power">
+								<option value="1">一般用户可见</option>
+								<option value="2">会员可见</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="container">    
+				                <label>请选择一个图像文件：</label>  
+				                <span id="select">(重新)选择图片</span>  
+				                <span id="add">(追加)图片</span>  
+				                <input type="file" id="file_input" multiple/> <!--用input标签并选择type=file，记得带上multiple，不然就只能单选图片了--> 
+				                <input type="hidden" name="image" id="images">  
+				                <span id="submit">提交</span>
+				            </div>
+				            <div class="showimg"></div>
+						</td>
+					</tr>
+					
+				</table>
+		</div>
+		<!--写帖子End-->
+		
+		<div class="con_right">
+			<div style="width: 100%;border: 1px solid #cdcdcd;margin-bottom: 10px;">
+				<form action="index.php?c=article&act=index" method="post">
+					<input type="text" name="word" style="margin: 10px;" autocomplete="off">
+					<input type="submit" name="" value="搜索">
+				</form>
+			</div>
+			<div class="myinfo">
+				<div class="mypoto">
+					<img src="./public/uploads/<?php echo $user['poto']?>" class="poto">
+					<p align="center"><?php echo $user['nickname']?></p>
+				</div>
+				<div class="att">
+					<a href="index.php?c=attention&act=showAtt&id=<?php echo $user['username']?>"><span>关注 <?php echo $att_num?> 人</span></a>
+					<a href="index.php?c=attention&act=showFens&id=<?php echo $user['username']?>"><span>粉丝 <?php echo $fens_num?> 人</span></a>
+				</div>
+			</div>
+			<div class="link_box">
+				<div class="box_title">
+					官方公告
+				</div>
+				<div class="link_li">
+					<?php foreach($guanf as $row):?>
+					<a href="index.php?c=article&act=showPage&id=<?php echo $row['arti_id']?>"><span><?php echo $row['title']?></span></a>
+					<?php endforeach?>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<?php include "footer.html"?>
+	<script type="text/javascript" src="application/views/home/js/showUser.js"></script>
+	<script type="text/javascript" src="application/views/home/js/setpoto.js"></script>
+	<script type="text/javascript" src="application/views/home/js/indexChose.js"></script>
+	<script type="text/javascript" src="application/views/home/js/sendarticle.js"></script>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>    
+</body>
+</html>

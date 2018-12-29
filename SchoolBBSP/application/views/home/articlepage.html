@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $article['title']?></title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/public.css">
+</head>
+<body>
+	<?php include "head.html"?>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">
+		&nbsp;&nbsp;<a href="index.php">返回主页</a>>>
+		<a href="index.php?c=article">所有帖子</a>
+	</div>
+	<!-- 帖子内容start -->
+	<div class="content" id="responds">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="pls ptn pbn">
+					<div class="tc ptn">
+						<span style="color: #999;">回复：</span>
+						<span><?php echo $total?></span>
+					</div>
+				</td>
+				<td class="plc ptm pbn">
+					<h1 class="ts"><span><?php echo $article['title']?></span></h1>
+				</td>
+			</tr>
+		</table>
+		<table cellspacing="0" cellpadding="0" class="ad">
+			<tr>
+				<td class="pls"></td>
+				<td class="plc"></td>
+			</tr>
+		</table>
+		<?php if ($current == 1):?>
+		<div id="article_<?php echo $article['arti_id']?>">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="pls" rowspan="3">
+						<div class="pi">
+							<a href="index.php?c=user&act=showUserInfo&id=<?php echo $autor['username']?>"><strong><?php echo $autor['nickname']?></strong></a>
+						</div>
+						<div>
+							<div class="user_poto">
+								<img src="./public/uploads/<?php echo $autor['poto']?>">
+							</div>
+						</div>
+					</td>
+					<td class="plc">
+						<div class="pi">
+							<em>发表于 <?php echo $article['starttime']?></em>
+							<span class="right"><em>1</em><sup>#</sup></span>
+							<div class="clear"></div>
+						</div>
+						<div class="pct">
+							<div class="content_txt">
+								<table cellpadding="0" cellspacing="0">
+									<?php foreach($article['article'] as $txt):?>
+									<tr>
+										<td class="txt_h"><?php echo $txt?></td>
+									</tr>
+									<?php endforeach?>
+									<tr><td><br></td></tr>
+									<?php foreach($images as $image):?>
+									<tr>
+										<td>
+											<div class="result"><img src="./public/uploads/<?php echo $image['image']?>" alt=""/></div>
+										</td>	
+									</tr>
+									<?php endforeach?>
+								</table>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="plc plm">
+						<div class="sign">
+							<?php echo $autor['token'] == "" ? "我很懒，什么都不想写..." : $autor['token']?>
+						</div>
+					</td>	
+				</tr>
+				<tr>
+					<td class="plc">
+						<div class="pi line"></div>
+					</td>
+				</tr>
+				<tr class="ad">
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>		
+		</div>
+		<?php endif?>
+		<?php foreach($ans as $k => $an):?>
+		<div id="respond_<?php echo $an['respond']['resp_id']?>">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="pls" rowspan="3">
+						<div class="pi">
+							<a href="index.php?c=user&act=showUserInfo&id=<?php echo $an['user']['username']?>"><strong><?php echo $an['user']['nickname']?></strong></a>
+						</div>
+						<div>
+							<div class="user_poto">
+								<img src="./public/uploads/<?php echo $an['user']['poto']?>">
+							</div>
+						</div>
+					</td>
+					<td class="plc">
+						<div class="pi">
+							<em>发表于 <?php echo $an['respond']['starttime']?></em>
+							<span class="right"><em><?php echo ($k + ($current == 1 ? 2 : 1)+($current-1)*$pagesize)?></em><sup>#</sup></span>
+							<div class="clear"></div>
+						</div>
+						<div class="pct">
+							<div class="content_txt">
+								<table cellpadding="0" cellspacing="0">
+									<?php foreach($an['respond']['content'] as $txt):?>
+									<tr>
+										<td class="txt_h"><?php echo $txt?></td>
+									</tr>
+									<?php endforeach?>
+								</table>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="plc plm">
+						<div class="sign">
+							<?php echo $an['user']['token'] == "" ? "我很懒，什么都不想写..." : $an['user']['token']?>
+						</div>
+					</td>	
+				</tr>
+				<tr>
+					<td class="plc">
+						<div class="pi line"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="pls"></td>
+					<td class="plc">
+						<span class="replyadd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em id="pre_number"><?php echo $an['respond']['pre_number']?></em><a class="link" onclick="pre(<?php echo $an['respond']['resp_id']?>)">人 支持</a></span>
+						<?php if($an['respond']['username'] == $user['username']):?>
+						<span class="right link"><a onclick="deleResp(<?php echo $an['respond']['resp_id']?>)">删除</a></span>
+						<?php endif?>
+						<div class="clear"></div>
+					</td>
+				</tr>
+				<tr class="ad">
+					<td class="pls"></td>
+					<td class="plc"></td>
+				</tr>
+			</table>
+		</div>
+		<?php endforeach?>
+		
+	</div>
+	<!-- 分页 -->
+	<table id="page-table" cellspacing="0">
+		<tbody>
+			<tr>
+				<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+					<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+					<div id="turn-page">
+						<?php echo $pageinfo;?>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="clear"></div>
+
+	<!-- 回复区域 -->
+	<div class="content">
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="pls"></td>
+				<td class="plc">
+					<form action="index.php?c=respond&act=addRespond" method="post" onsubmit="return checkRespond(this)">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<td class="ptn pbn">
+									<textarea cols="100" rows="10" name="content"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="pbn">
+									<input type="submit" name="" value="发表回复">
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="arti_id" value="<?php echo $article['arti_id']?>">
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- 帖子部分End -->
+	<?php include "footer.html"?>
+	<iframe src="" frameborder="0" width="0" height="0" id="ifr"></iframe>
+	<script type="text/javascript">
+		function checkRespond(obj){
+			if (obj.content.value == ""){
+				alert("回复不能为空！");
+				return false;
+			}
+			return true;
+		}
+		function pre(resp_id){
+			var ifr = document.getElementById('ifr');
+  			ifr.src = "index.php?c=pre&act=addPre&resp_id="+resp_id;
+		}
+
+		function deleResp(resp_id){
+			var ifr = document.getElementById('ifr');
+  			ifr.src = "index.php?c=respond&act=deleteRespond&resp_id="+resp_id;
+
+		}
+	</script>
+</body>
+</html>

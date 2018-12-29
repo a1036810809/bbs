@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>管理员页面</title>
+	<style type="text/css">
+		.box{
+			width: 50%;
+			min-width: 500px;
+			border: 1px solid #cdcdcd;
+			margin: 10px auto;
+		}
+		.row{
+			height: 70px;
+			width: 96%;
+			margin: 5px auto;
+			border-bottom: 1px solid #cdcdcd;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">
+		&nbsp;&nbsp;<a href="index.php?p=admin&c=login&act=logout">退出</a>
+	</div>
+	<div style="height: 33px;position: absolute;top: 50px;right: 10px;width: 250px;border:1px solid #cdcdcd;">
+		<form action="index.php?p=admin&c=index&act=addc" method="post">
+			<input type="text" name="classname" style="margin:5px;">
+			<input type="submit" name="" value="增加类别">
+		</form>
+	</div>
+	<div style="position: absolute;top: 90px;right: 10px;width: 250px;border:1px solid #cdcdcd;">
+		<div style="height: 33px;line-height: 33px;width: 100%;border-bottom: 1px solid #cdcdcd;">
+			&nbsp;&nbsp;类别列表
+		</div>
+		<div style="width: 95%;margin:5px auto;">
+			<?php foreach($classs as $row){?>
+			<p style="margin: 0;"><?php echo $row['classname']?></p>
+			<?php }?>
+		</div>
+	</div>
+	<div class="box">
+		<div style="height: 33px;line-height: 33px;width: 100%;border-bottom: 1px solid #cdcdcd;">
+			&nbsp;&nbsp;用户列表
+		</div>
+		<?php foreach($users as $row){?>
+		<div class="row">
+			<div style="width: 60px;height: 60px;border-radius: 50%;overflow: hidden;display: inline-block;">
+				<img src="./public/uploads/<?php echo $row['poto']?>" class="poto">
+			</div>
+			<div style="height: 60px;display: inline-block;margin-left: 10px;position: absolute;top:5px;">
+				<p style="margin: 0;"><a><b><?php echo $row['nickname']?></b></a></p>
+				<p style="font-size: .8em;color: #333"><?php echo $row['token'] == "" ? "该用户很懒，什么都没有写..." : $row['token']?></p>
+			</div>
+			<div style="height: 60px;display: inline-block;margin-left: 10px;position: absolute;right: 0px;">
+				<?php if($row['identity'] != 3){?>
+				<a href="index.php?p=admin&c=index&act=change&id=<?php echo $row['username']?>"><p>调整为官方</p></a>
+				<?php }else{?>
+				<a href="index.php?p=admin&c=index&act=clear&id=<?php echo $row['username']?>"><p>去除官方</p></a>
+				<?php }?>
+			</div>
+		</div>
+		<?php }?>
+
+		<!-- 分页 -->
+		<table id="page-table" cellspacing="0">
+			<tbody>
+				<tr>
+					<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+						<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+						<div id="turn-page">
+							<?php echo $pageinfo;?>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="clear"></div>
+	</div>
+
+	<?php include "footer.html"?>
+	<script type="text/javascript" src="application/views/home/js/setpoto.js"></script>
+</body>
+</html>

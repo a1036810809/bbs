@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>找回密码</title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/registe.css">
+</head>
+<body>
+	<div class="head">
+		<div class="icon">
+			<img src="application/views/home/images/head_icon.png" height="100%">
+		</div>
+		<div class="userinfo">
+			<p>
+				<span><a href="index.php?c=login&act=login">返回</a></span>
+			</p>
+		</div>
+	</div>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">&nbsp;&nbsp;&nbsp;找回密码</div>
+	<div style="width: 60%;border: 1px solid #ccc;border-radius: 10px;box-shadow:2px 2px 0px 2px #ccc;margin: 10px auto;">
+		<form action="index.php?c=login&act=resetpwd" method="post" onsubmit="return checkRePwd(this)" name="regisform">
+			<br>	
+			<p align="center"><strong>找回密码验证</strong></p><br>
+			<table cellpadding="0" cellspacing="5" border="0" style="margin: auto;">
+				<tr>
+					<td>用&nbsp;&nbsp;户&nbsp;&nbsp;名：</td>
+					<td><input type="text" name="username" size="20" pattern="^[1-9][0-9]{5,13}$"></td>
+				</tr>
+				<tr>
+					<td>你的邮箱：</td>
+					<td><input type="email" name="email" size="20"></td>
+				</tr>
+				<tr>
+					<td>你的电话：</td>
+					<td><input type="text" name="tell" size="20" pattern="^[0-9]*$"></td>
+				</tr>
+				<tr>
+					<td>新&nbsp;&nbsp;密&nbsp;&nbsp;码：</td>
+					<td><input type="password" name="pwd" size="20"></td>
+				</tr>
+				<tr>
+					<td align="center"><input type="submit" name="" value="提交" style="padding: 5px"></td>
+					<td align="center"><input type="reset" name="" value="重置" style="padding: 5px"></td>
+				</tr>
+			</table>
+			<br>
+		</form>
+	</div>
+	<script type="text/javascript" src="application/views/home/js/checkInfo.js"></script>
+	<?php include "footer.html"?>
+</body>
+</html>

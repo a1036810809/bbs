@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>更改信息</title>
+	<link rel="stylesheet" type="text/css" href="application/views/home/css/public.css">
+	<style type="text/css">
+		.set_meun li{
+			display: block;
+			cursor: pointer;
+			height: 33px;
+			line-height: 33px;
+			border-bottom: 1px solid #cdcdcd
+		}
+		.set_meun li:hover{
+			background: #fff;
+		}
+		.info{
+			width: 750px;
+			margin-top: 30px;
+			background-color: #eee;
+		}
+		.hover{
+			background: #fff;
+		}
+		.show{
+			display: block;
+		}
+		.noshow{
+			display: none;
+		}
+		.btn{
+			color: #000;
+			padding: 2px;
+			size: 1em;
+			width: 60px;
+			border: 1px solid #939393;
+			background: #f4f4f4;
+			cursor: pointer;
+		}
+		.btn:hover{
+			border: 1px solid #000;
+		}
+		 #file_input{  
+	        display: none;  
+	    }
+	</style>
+</head>
+<body>
+	<?php include "head.html"?>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">
+		&nbsp;&nbsp;<a href="index.php">返回主页</a>
+	</div>
+	
+	<div class="content info">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="pls tc">
+					<ul class="set_meun" id="set_menu">
+						<li class="hover">更改信息</li>
+						<li>更改密码</li>
+						<li>更改头像</li>
+					</ul>
+				</td>
+				<td class="plc">
+					<div id="set_info">
+						<div class="show">
+							<form action="index.php?c=user&act=updateInfo" method="post" onsubmit="return checkUpdateInfo(this)">
+								<table cellspacing="5" cellpadding="0" style="width: 50%;margin-top: 10px;" class="tc">
+									<tr >
+										<td width="15%">昵称：</td>
+										<td class="pbn"><input type="text" name="nickname" placeholder="<?php echo $user['nickname']?>" autocomplete="off" disableautocomplete></td>
+									</tr>
+									<tr>
+										<td>性别：</td>
+										<td class="pbn">
+											<input type="radio" name="sex" value="0" <?php if ($user['sex'] == 0) echo "checked"?>>保密
+											<input type="radio" name="sex" value="1" <?php if ($user['sex'] == 1) echo "checked"?>>男
+											<input type="radio" name="sex" value="2" <?php if ($user['sex'] == 2) echo "checked"?>>女
+										</td>
+									</tr>
+									<tr>
+										<td>地址：</td>
+										<td class="pbn">
+											 <select class="form-control" id="province" name="province" ></select>
+											 <select class="form-control" id="city" name="city" ></select>
+											 <select class="form-control" id="area" name="area" ></select>
+										</td>
+									</tr>
+									<tr>
+										<td>生日：</td>
+										<td class="pbn"><input type="date" name="brithday" size="20"  value="<?php echo $user['brithday']?>" autocomplete="off" disableautocomplete></td>
+									</tr>
+									<tr>
+										<td>邮箱：</td>
+										<td class="pbn"><input type="email" name="email"  placeholder="<?php echo $user['email']?>" autocomplete="off" disableautocomplete></td>
+									</tr>
+									<tr>
+										<td>电话：</td>
+										<td class="pbn"><input type="text" name="phone" pattern="^[0-9]*$"  placeholder="<?php echo $user['phone']?>" autocomplete="off" disableautocomplete></td>
+									</tr>
+									<tr>
+										<td>学校：</td>
+										<td class="pbn"><input type="text" name="school"  placeholder="<?php echo $user['school']?>" autocomplete="off" disableautocomplete></td>
+									</tr>
+									<tr>
+										<td>简介：</td>
+										<td class="pbn"><textarea cols="22" rows="4" name="token"  placeholder="<?php echo $user['token']?>" autocomplete="off" disableautocomplete></textarea></td>
+									</tr>
+									<tr>
+										<td><input type="submit" name="" value="修改"></td>
+										<td class="pbn"y><input type="reset" name="" value="重置"></td>
+									</tr>
+
+								</table>
+							</form>
+						</div>
+						<div class="noshow">
+							<form action="index.php?c=user&act=updatePwd" method="post" onsubmit="return checkUpdatePwd(this)">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>旧密码：</td>
+										<td><input type="password" name="oldpwd"></td>
+									</tr>
+									<tr>
+										<td>新密码：</td>
+										<td><input type="password" name="pwd"></td>
+									</tr>
+									<tr>
+										<td><input type="submit" name="" value="修改"></td>
+										<td class="pbn"y><input type="reset" name="" value="重置"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+						<div class="noshow">
+							<form action="index.php?c=user&act=updatePoto" method="post" enctype="multipart/form-data" onsubmit="return checkUpdatePoto(this)" >
+								<div class="container">    
+					                <label>请选择一个图像文件：</label>  
+					                <div class="btn tc" id="select">选择头像</div> 
+					                <input type="file" id="file_input" name="file" /><br>
+					                <button id="submit">提交</button>
+					            </div>
+							</form>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr class="ad">
+				<td class="pls"></td>
+				<td class="plc"></td>
+			</tr>
+		</table>
+	</div>
+	<?php include "footer.html"?>
+	<script type="text/javascript" src="application/views/home/js/address.js"></script>
+	<script type="text/javascript" src="application/views/home/js/chooseSet.js"></script>
+	<script type="text/javascript" src="application/views/home/js/checkInfo.js"></script>
+	<script type="text/javascript" src="application/views/home/js/choosepoto.js"></script>
+	<script type="text/javascript">
+		addressInit('province', 'city', 'area',"<?php echo $user['province']?>","<?php echo $user['city']?>","<?php echo $user['area']?>");  
+	</script>
+</body>
+</html>

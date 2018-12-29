@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo $title?></title>
+	<style type="text/css">
+		.box{
+			width: 50%;
+			min-width: 500px;
+			border: 1px solid #cdcdcd;
+			margin: 10px auto;
+		}
+		.row{
+			height: 70px;
+			width: 96%;
+			margin: 5px auto;
+			border-bottom: 1px solid #cdcdcd;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<?php include "head.html"?>
+	<div style="height: 33px;background-color: #eee;line-height: 33px;">
+		&nbsp;&nbsp;<a href="index.php">返回主页</a>
+	</div>
+	
+	<div class="box">
+		<div style="height: 33px;line-height: 33px;width: 100%;border-bottom: 1px solid #cdcdcd;">
+			&nbsp;&nbsp;<?php echo $title?>列表
+		</div>
+		<?php if ($total == 0){?>
+			<div class="row">
+				<h1 align="center">一个人都没有(=.=)</h1>
+			</div>
+		<?php }foreach($users as $row){?>
+		<div class="row">
+			<div style="width: 60px;height: 60px;border-radius: 50%;overflow: hidden;display: inline-block;">
+				<img src="./public/uploads/<?php echo $row['poto']?>" class="poto">
+			</div>
+			<div style="height: 60px;display: inline-block;margin-left: 10px;position: absolute;top:5px;">
+				<p><a href="index.php?c=user&act=showUserInfo&id=<?php echo $row['username']?>"><b><?php echo $row['nickname']?></b></a></p>
+				<p style="margin-top: 5px;font-size: .8em;color: #333"><?php echo $row['token'] == "" ? "该用户很懒，什么都没有写..." : $row['token']?></p>
+			</div>
+		</div>
+		<?php }?>
+
+		<!-- 分页 -->
+		<table id="page-table" cellspacing="0">
+			<tbody>
+				<tr>
+					<td align="right" nowrap="true" style="background-color: rgb(255, 255, 255);">
+						<!-- $Id: page.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+						<div id="turn-page">
+							<?php echo $pageinfo;?>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="clear"></div>
+	</div>
+
+	<?php include "footer.html"?>
+	<script type="text/javascript" src="application/views/home/js/setpoto.js"></script>
+</body>
+</html>
